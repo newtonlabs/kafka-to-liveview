@@ -29,7 +29,16 @@ import topbar from "../vendor/topbar"
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 
 let Hooks = {}
-Hooks.Price = { updated() { this.el.classList.add("highlight")}}
+Hooks.Price = {
+  updated() {
+      let element = this.el;
+
+      element.classList.add("highlight");
+      setTimeout(function() {
+        element.classList.remove("highlight");
+      }, 3000);
+  }
+}
 
 let liveSocket = new LiveSocket("/live", Socket, {hooks: Hooks, params: {_csrf_token: csrfToken}})
 
