@@ -34,7 +34,7 @@ Send messages to Kafka, to be picked up by Broadway, to send to Phoenix to send 
 ```
 # Format is unique id, name, and a price.  Name and price will update based on ID
 # Number of messages to send
-PubsubLive.Orders.simulate(1000)
+PubsubLive.Orders.simulate(100)
 ```
 
 ### Code to look at for wiring

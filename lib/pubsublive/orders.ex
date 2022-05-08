@@ -14,6 +14,7 @@ defmodule PubsubLive.Orders do
       id = Enum.random(1..10)
       dollars = Enum.random(1..100)
       cents = Enum.random(0..99)
+      :timer.sleep(500)
       :ok = :brod.produce_sync(@client_id, @topic, partition, _key="", "#{id},name-#{id},$#{dollars}.#{cents}")
     end)
 
