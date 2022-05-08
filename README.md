@@ -24,22 +24,38 @@ Create a topic, if not already in place. For this demo we are using the topic "o
 $ bin/kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092
 ```
 
-### Setup to send messages to Kafka in REPL
+### Open the App
 
-```
-topic = "orders"
-client_id = :my_client
-hosts = [localhost: 9092]
-
-:ok = :brod.start_client(hosts, client_id, _client_config=[])
-:ok = :brod.start_producer(client_id, topic, _producer_config = [])
-
-```
+* [http://localhost:4000/ticker](http://localhost:4000/ticker)
 
 ### Fire Away
 
 Send messages to Kafka, to be picked up by Broadway, to send to Phoenix to send to FE
 ```
 # Format is unique id, name, and a price.  Name and price will update based on ID
-:brod.produce_sync(client_id, topic, 0, _key="", "id-1, name-1, price-23")
+# Number of messages to send
+PubsubLive.Orders.simulate(1000)
+```
+
+### Code to look at for wiring
+
+```
+
+
+lib
+├── pubsublive
+│   ├── application.ex           # Broadway Config
+│   ├── my_broadway.ex           # Broadway Code to accept Kafka
+│   ├── orders.ex                # Generate messages for Kafka
+└── pubsublive_web
+    ├── live
+    │   ├── ticker.ex            # Ticker LiveView, most of the code is here
+    │   └── ticker_component.ex  # Ticker Component
+    └── router.ex                # routes added for /ticker 
+
+assets
+├── css
+│   └── app.css                  # Styling for flash on change
+└── js
+    └── app.js                   # Small hook for JS/LiveView Interop to flash
 ```

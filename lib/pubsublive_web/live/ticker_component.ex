@@ -6,7 +6,10 @@ defmodule PubsubliveWeb.TickerComponent do
 
   def render(assigns) do
     ~H"""
-    <span phx-hook="Price" id={@id}>  <%= @id %> <%= @name %> <%= @value %> </span>
+    <div class="row">
+      <div class="column column-20"> <%= @name %> </div>
+      <div class="column column-10 selection" phx-hook="Price" id={@id}>  <%= @value %> </div>
+    </div>
     """
   end
 end

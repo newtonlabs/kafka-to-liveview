@@ -4,8 +4,6 @@ defmodule Pubsublive.MyBroadway do
   alias Broadway.Message
 
   def start_link(_opts) do
-    IO.inspect("link started")
-
     Broadway.start_link(__MODULE__,
       name: __MODULE__,
       producer: [
@@ -14,7 +12,7 @@ defmodule Pubsublive.MyBroadway do
            [
              hosts: [localhost: 9092],
              group_id: "group_1",
-             topics: ["orders"]
+             topics: ["orders"] # Hard coded for POC, see README
            ]},
         concurrency: 1
       ],
@@ -35,18 +33,12 @@ defmodule Pubsublive.MyBroadway do
 
   @impl true
   def handle_message(_, message, _) do
-    # IO.inspect("handled")
     result =
       message
-      # |> Message.update_data(fn data -> {data, String.to_integer(data) * 2} end)
       |> Message.update_data(&process_string_to_tuple_hack/1)
 
-    # |> Message.update_data(fn data -> data end)
-
-    IO.inspect("broadcasting....")
-    IO.inspect(result.data)
-
     Phoenix.PubSub.broadcast(Pubsublive.PubSub, "notifications", result.data)
+
     result
   end
 
@@ -58,8 +50,6 @@ defmodule Pubsublive.MyBroadway do
 
   @impl true
   def handle_batch(_, messages, _, _) do
-    # list = messages |> Enum.map(fn e -> e.data end)
-    # IO.inspect(list, label: "Got batch")
     messages
   end
 end

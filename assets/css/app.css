@@ -35,21 +35,27 @@
   margin: -1rem 0 2rem;
 }
 
+.selection {
+  margin: 2px;
+  padding: 5px;
+  background-color: #eee;
+}
+
 .highlight {
   -webkit-animation-name: flash-animation;
-  -webkit-animation-duration: 3s;
+  -webkit-animation-duration: 1s;
 
   animation-name: flash-animation;
-  animation-duration: 3s;
+  animation-duration: 1s;
 }
 
 @-webkit-keyframes flash-animation {  
-  from { background: yellow; }
+  from { background: rgb(110, 203, 141); }
   to   { background: default; }
 }
 
 @keyframes flash-animation {  
-  from { background: yellow; }
+  from { background: rgb(110, 203, 141); }
   to   { background: default; }
 }
 

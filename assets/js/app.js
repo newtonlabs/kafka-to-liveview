@@ -28,6 +28,7 @@ import topbar from "../vendor/topbar"
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 
+// Add a hook to get the update from LiveView of the DOM
 let Hooks = {}
 Hooks.Price = {
   updated() {
@@ -36,7 +37,7 @@ Hooks.Price = {
       element.classList.add("highlight");
       setTimeout(function() {
         element.classList.remove("highlight");
-      }, 3000);
+      }, 1000);
   }
 }
 

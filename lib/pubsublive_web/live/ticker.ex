@@ -29,13 +29,15 @@ defmodule PubsubliveWeb.Ticker do
   # In the component by the "id" passed
   def render(assigns) do
     ~H"""
-    <table>
     <%= for {id, name, value} <- @selections do %>
-    <div>
-      <.live_component module={PubsubliveWeb.TickerComponent} id={id} name={name} value={value}/>
+    <div class="container">
+      <div class="row">
+        <div class="column">
+        <.live_component module={PubsubliveWeb.TickerComponent} id={id} name={name} value={value}/>
+        </div>
+      </div>
     </div>
     <% end %>
-    </table>
     """
   end
 
@@ -55,16 +57,7 @@ defmodule PubsubliveWeb.Ticker do
 
   # Assumes fits the contract {id, name, value} from Broadway
   def handle_info(message, socket) do
-    IO.puts("recieving message")
-    IO.inspect(message)
-
-    IO.puts("socket state")
-    IO.inspect(socket.assigns.selections)
-
-    IO.puts("updated state")
     selections = update_selections(socket.assigns.selections, message)
-    IO.inspect(selections)
-
     {:noreply, assign(socket, :selections, selections)}
   end
 
@@ -75,8 +68,3 @@ defmodule PubsubliveWeb.Ticker do
 
   def update_selections([head | tail], message), do: [head | update_selections(tail, message)]
 end
-
-# {product_id: 123, quantity: 5}
-# def insert_item([], new_item), do: [new_item]
-# def insert_item([h = %{product_id: id, quantity: old_quantity}|t], %{product_id: id, quantity: growth}), do: [%{h | quantity: old_quantity + growth}|t]
-# def insert_item([h|t], new_item), do: [h|insert_item(t, new_item)]
