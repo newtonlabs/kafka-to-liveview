@@ -5,6 +5,13 @@ A POC code repository to show an event flowing from
 3. Elixir Pubsub
 4. Live View
 
+### Deploy via Nullstone
+
+```shell
+docker build -t pubsublive .
+nullstone launch --source=pubsublive --app=<app-name> --env=<env-name>
+```
+
 ### How to run locally
 
 ```shell
