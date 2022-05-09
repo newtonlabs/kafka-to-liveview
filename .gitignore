@@ -32,3 +32,6 @@ pubsublive-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# IDE
+.idea/
+.vscode/

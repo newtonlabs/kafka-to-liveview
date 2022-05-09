@@ -1,9 +1,20 @@
 # Kafka To LiveView
 A POC code repository to show an event flowing from 
 1. Kafka
-1. Broadway
-1. Elixir Pubsub
-1. Live View
+2. Broadway
+3. Elixir Pubsub
+4. Live View
+
+### How to run locally
+
+```shell
+# Start zookeeper, kafka, and postgres (detached)
+docker compose up -d db kafka zookeeper
+# Start app and tail logs
+docker compose up app
+```
+
+Visit [http://localhost:4000/ticker](http://localhost:4000/ticker)
 
 ### Download Kafka
 
@@ -23,10 +34,6 @@ Create a topic, if not already in place. For this demo we are using the topic "o
 ```
 $ bin/kafka-topics.sh --create --topic orders --bootstrap-server localhost:9092
 ```
-
-### Open the App
-
-* [http://localhost:4000/ticker](http://localhost:4000/ticker)
 
 ### Fire Away
 
