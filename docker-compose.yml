@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  app:
+    image: "nullstone/phoenix:local"
+    volumes:
+      - .:/app
+      - deps:/app/deps
+    ports:
+      - "4000:9000"
+    environment:
+      - NULLSTONE_ENV=local
+      - POSTGRES_URL=postgres://acme:acme@db:5432/acme
+    depends_on:
+      - kafka
+      - db
+
+  db:
+    image: "postgres:13"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=acme
+      - POSTGRES_PASSWORD=acme
+      - POSTGRES_DB=acme
+
+  kafka:
+    image: "bitnami/kafka"
+    ports:
+      - "9092:9092"
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    volumes:
+      - kafka-data:/bitnami/kafka
+    depends_on:
+      - zookeeper
+
+  zookeeper:
+    image: "bitnami/zookeeper"
+    ports:
+      - "2181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+volumes:
+  deps:
+  kafka-data:
