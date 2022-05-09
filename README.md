@@ -7,10 +7,22 @@ A POC code repository to show an event flowing from
 
 ### Deploy via Nullstone
 
-```shell
-docker build -t pubsublive .
-nullstone launch --source=pubsublive --app=<app-name> --env=<env-name>
-```
+1. Create postgresql datastore.
+2. Create kafka datastore.
+3. Create a public web app. (Remember `app-name` for later)
+4. Add the postgresql datastore (from step 1) to the app.
+5. Add the kafka datastore (from step 2) to the app.
+6. Add the `SECRET_KEY_BASE for Rails Cookies` capability to the app. (this capability works for Rails and Phoenix)
+7. Provision
+  ```shell
+  nullstone up --wait --block=<app-name> --env=<env-name>
+  ```
+7. Build, push, and deploy
+  ```shell
+  docker build -t pubsublive .
+  nullstone launch --source=pubsublive --app=<app-name> --env=<env-name>
+  ```
+
 
 ### How to run locally
 
