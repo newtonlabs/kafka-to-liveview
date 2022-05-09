@@ -9,7 +9,7 @@ defmodule Pubsublive.MyBroadway do
         name: __MODULE__,
         producer: [
           module: {BroadwayKafka.Producer, [
-            hosts: [localhost: 9092],
+            hosts: [kafka: 9092],
             group_id: "group_1",
             topics: ["orders"],
           ]},

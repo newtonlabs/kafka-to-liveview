@@ -2,7 +2,7 @@ defmodule PubsubLive.Orders do
 
   @topic "orders"
   @client_id :my_client
-  @hosts [localhost: 9092]
+  @hosts [kafka: 9092]
   @partition 0
 
   def simulate(count) do
