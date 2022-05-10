@@ -1,9 +1,39 @@
 # Kafka To LiveView
 A POC code repository to show an event flowing from 
 1. Kafka
-1. Broadway
-1. Elixir Pubsub
-1. Live View
+2. Broadway
+3. Elixir Pubsub
+4. Live View
+
+### Deploy via Nullstone
+
+1. Create postgresql datastore.
+2. Create kafka datastore.
+3. Create a public web app. (Remember `app-name` for later)
+4. Add the postgresql datastore (from step 1) to the app.
+5. Add the kafka datastore (from step 2) to the app.
+6. Add the `SECRET_KEY_BASE for Rails Cookies` capability to the app. (this capability works for Rails and Phoenix)
+7. Provision
+  ```shell
+  nullstone up --wait --block=<app-name> --env=<env-name>
+  ```
+7. Build, push, and deploy
+  ```shell
+  docker build -t pubsublive .
+  nullstone launch --source=pubsublive --app=<app-name> --env=<env-name>
+  ```
+
+
+### How to run locally
+
+```shell
+# Start zookeeper, kafka, and postgres (detached)
+docker compose up -d db kafka zookeeper
+# Start app and tail logs
+docker compose up app
+```
+
+Visit [http://localhost:4000/ticker](http://localhost:4000/ticker)
 
 ### Download Kafka
 
@@ -23,10 +53,6 @@ Create a topic, if not already in place. For this demo we are using the topic "o
 ```
 $ bin/kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092
 ```
-
-### Open the App
-
-* [http://localhost:4000/ticker](http://localhost:4000/ticker)
 
 ### Fire Away
 
