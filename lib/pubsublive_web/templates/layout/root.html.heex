@@ -10,13 +10,11 @@
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <body>
-    <header>
-      <section class="container">
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %>
-            <% end %>
-      </section>
-    </header>
+
+    <div class="flex flex-row flex-wrap bg-[#2e4068] p-2 mb-10 justify-center">
+      <h1 class="py-8 text-white text-3xl ">Price Simulator</h1>
+    </div>
+
     <%= @inner_content %>
   </body>
 </html>

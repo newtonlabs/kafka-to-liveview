@@ -21,7 +21,7 @@ $ bin/kafka-server-start.sh config/server.properties
 
 Create a topic, if not already in place. For this demo we are using the topic "orders"
 ```
-$ bin/kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092
+$ bin/kafka-topics.sh --create --topic orders --bootstrap-server localhost:9092
 ```
 
 ### Open the App

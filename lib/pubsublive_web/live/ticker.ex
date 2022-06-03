@@ -1,6 +1,5 @@
 defmodule PubsubliveWeb.Ticker do
   use Phoenix.LiveView
-  alias Phoenix.LiveView.JS
 
   # Boot up the process and initialize state.  State is maintained in the socket.
   # Specifically assigns is used for application state.  Params will track http params
@@ -29,15 +28,24 @@ defmodule PubsubliveWeb.Ticker do
   # In the component by the "id" passed
   def render(assigns) do
     ~H"""
-    <%= for {id, name, value} <- @selections do %>
-    <div class="container">
-      <div class="row">
-        <div class="column">
-        <.live_component module={PubsubliveWeb.TickerComponent} id={id} name={name} value={value}/>
-        </div>
+    <div class="flex flex-row flex-wrap justify-center text-xs">
+
+    <div class="flex flex-row w-full m-px justify-between bg-slate-100">
+      <div class="w-40 shrink-0">
+        <div class="text-slate-800 p-1 pl-2"> Event </div>
+      </div>
+      <div class="flex flex-row justify-end">
+        <div class="w-14 py-1 mr-1 text-slate-800 text-center"> Price</div>
       </div>
     </div>
+
+    <%= for {id, name, value} <- @selections do %>
+    <div class="flex flex-row w-full m-px justify-between border-b border-slate-200">
+        <.live_component module={PubsubliveWeb.TickerComponent} id={name} name={name}/>
+        <.live_component module={PubsubliveWeb.PriceComponent}  id={id} name={name} value={value}/>
+    </div>
     <% end %>
+    </div>
     """
   end
 
