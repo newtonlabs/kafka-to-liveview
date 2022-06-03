@@ -1,6 +1,5 @@
 defmodule Pubsublive.MyBroadway do
   use Broadway
-
   alias Broadway.Message
 
   # Configure a reall simple broadway pipeline with only 1 producer and 1 processor
@@ -29,7 +28,8 @@ defmodule Pubsublive.MyBroadway do
       message
       |> Message.update_data(&process_string_to_tuple_hack/1)
 
-    :timer.sleep(Enum.random(100..1000)) #simulate some expensive work
+    # Simulate some expensive work, min 300ms too coincide with the flast
+    :timer.sleep(Enum.random(300..1000))
 
     # Broadcast to all the phoenix live views that care about this data
     Phoenix.PubSub.broadcast(Pubsublive.PubSub, "notifications", result.data)
