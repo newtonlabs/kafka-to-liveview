@@ -4,10 +4,10 @@
 
 .highlight {
   -webkit-animation-name: flash-animation;
-  -webkit-animation-duration: .3s;
+  -webkit-animation-duration: 3s;
 
   animation-name: flash-animation;
-  animation-duration: .3s;
+  animation-duration: 3s;
 }
 
 @-webkit-keyframes flash-animation {  

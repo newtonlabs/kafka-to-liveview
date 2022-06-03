@@ -17,7 +17,7 @@ defmodule Pubsublive.MyBroadway do
         ],
         processors: [
           default: [
-            concurrency: 1
+            concurrency: 10
           ]
         ]
       )
@@ -29,7 +29,7 @@ defmodule Pubsublive.MyBroadway do
       |> Message.update_data(&process_string_to_tuple_hack/1)
 
     # Simulate some expensive work, min 300ms too coincide with the flast
-    :timer.sleep(Enum.random(300..1000))
+    :timer.sleep(Enum.random(300..600))
 
     # Broadcast to all the phoenix live views that care about this data
     Phoenix.PubSub.broadcast(Pubsublive.PubSub, "notifications", result.data)

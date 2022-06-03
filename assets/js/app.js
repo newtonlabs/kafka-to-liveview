@@ -24,23 +24,17 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
+import {fadingHook} from "./utils"
+import * as d3 from "../vendor/d3.min"
+
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 
 // Add a hook to get the update from LiveView of the DOM
-let Hooks = {}
-Hooks.Price = {
-  updated() {
-      let element = this.el;
+let hooks = fadingHook();
 
-      element.classList.add("highlight");
-      setTimeout(function() {
-        element.classList.remove("highlight");
-      }, 1000);
-  }
-}
-
-let liveSocket = new LiveSocket("/live", Socket, {hooks: Hooks, params: {_csrf_token: csrfToken}})
+let liveSocket = new LiveSocket("/live", Socket, {hooks: hooks, params: {_csrf_token: csrfToken}})
+// let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
 
 // Show progress bar on live navigation and form submits
 topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"})
