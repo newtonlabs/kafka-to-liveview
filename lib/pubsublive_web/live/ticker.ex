@@ -30,21 +30,27 @@ defmodule PubsubliveWeb.Ticker do
     ~H"""
     <div class="flex flex-row flex-wrap justify-center text-xs">
 
-    <div class="flex flex-row w-full m-px justify-between bg-slate-100">
-      <div class="w-40 shrink-0">
-        <div class="text-slate-800 p-1 pl-2"> Event </div>
+      <div class="flex flex-row w-full mb-2 justify-between bg-slate-100">
+        <div class="w-32">
+          <div class="p-1 pl-2"> Event </div>
+        </div>
+        <div class="flex flex-row justify-end">
+          <div class="w-14 py-1 mr-1 text-center"> Price</div>
+        </div>
       </div>
-      <div class="flex flex-row justify-end">
-        <div class="w-14 py-1 mr-1 text-slate-800 text-center"> Price</div>
-      </div>
-    </div>
 
-    <%= for {id, name, value} <- @selections do %>
-    <div class="flex flex-row w-full m-px justify-between border-b border-slate-200">
-        <.live_component module={PubsubliveWeb.TickerComponent} id={name} name={name}/>
-        <.live_component module={PubsubliveWeb.PriceComponent}  id={id} name={name} value={value}/>
-    </div>
-    <% end %>
+      <%= for {id, name, value} <- @selections do %>
+      <div class="flex flex-row w-full py-1 justify-between ">
+        <% event_id = "event#{id}" %>
+        <.live_component module={PubsubliveWeb.EventComponent} id={event_id} name={name}/>
+
+        <div class="flex flex-row ">
+          <% chart_id = "chart#{id}" %>
+          <div class="py-2" phx-update="ignore" phx-hook="Sparkline" id={chart_id}></div>
+          <.live_component module={PubsubliveWeb.PriceComponent}  id={id} name={name} value={value}/>
+        </div>
+      </div>
+      <% end %>
     </div>
     """
   end
@@ -56,7 +62,7 @@ defmodule PubsubliveWeb.Ticker do
   #   <table>
   #   <%= for {id, name, value} <- @selections do %>
   #   <div>
-  #     <span class={JS.transition("highlight")}> <%= id %> <%= name %> <%= value %> </span>
+  #     <span> <%= id %> <%= name %> <%= value %> </span>
   #   </div>
   #   <% end %>
   #   </table>
@@ -66,6 +72,10 @@ defmodule PubsubliveWeb.Ticker do
   # Assumes fits the contract {id, name, value} from Broadway
   def handle_info(message, socket) do
     selections = update_selections(socket.assigns.selections, message)
+
+    # manually send an event to the graphing hook, not needed if wasn't graphing
+    # push_event(socket, "new-data", "test")
+
     {:noreply, assign(socket, :selections, selections)}
   end
 

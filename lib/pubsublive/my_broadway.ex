@@ -28,8 +28,8 @@ defmodule Pubsublive.MyBroadway do
       message
       |> Message.update_data(&process_string_to_tuple_hack/1)
 
-    # Simulate some expensive work, min 300ms too coincide with the flast
-    :timer.sleep(Enum.random(300..600))
+    # Simulate some expensive work
+    :timer.sleep(Enum.random(30..100))
 
     # Broadcast to all the phoenix live views that care about this data
     Phoenix.PubSub.broadcast(Pubsublive.PubSub, "notifications", result.data)
@@ -42,9 +42,4 @@ defmodule Pubsublive.MyBroadway do
     |> String.split(",")
     |> List.to_tuple()
   end
-
-  # @impl true
-  # def handle_batch(_, messages, _, _) do
-  #   messages
-  # end
 end

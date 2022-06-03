@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <html lang="en">
   <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -9,12 +8,14 @@
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
-  <body>
+  <body class="text-slate-800">
+    <div class="m-2 pb-3 max-w-lg grid border border-slate-200 rounded-md shadow-2xl content-center ">
 
-    <div class="flex flex-row flex-wrap bg-[#2e4068] p-2 mb-10 justify-center">
-      <h1 class="py-8 text-white text-3xl ">Price Simulator</h1>
+      <div class="flex w-full flex-row flex-wrap bg-[#2e4068] p-2 mb-10 rounded-t-md justify-start">
+        <h1 class="text-white text-2xl ">Price Simulator</h1>
+      </div>
+
+      <%= @inner_content %>
     </div>
-
-    <%= @inner_content %>
   </body>
 </html>

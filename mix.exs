@@ -50,6 +50,7 @@ defmodule Pubsublive.MixProject do
       {:jason, "~> 1.2"},
       {:broadway_kafka, "~> 0.3"},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
+      {:faker, "~> 0.17"},
       {:plug_cowboy, "~> 2.5"}
     ]
   end

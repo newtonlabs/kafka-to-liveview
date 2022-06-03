@@ -10,22 +10,25 @@ defmodule PubsubLive.Orders do
     :ok = :brod.start_client(@hosts, @client_id, _client_config=[])
     :ok = :brod.start_producer(@client_id, @topic, _producer_config = [])
 
+
     events = 10
-    # ids    = events * 3
+    names = create_names(events)
 
     Enum.each(1..count, fn _i ->
-      # id = Enum.random(1..ids)
 
-      event_id = Enum.random(1..events)
-      dollars = Enum.random(1..20)
-      cents = Enum.random(0..99)
-      cost = "#{dollars}.#{cents}"
+      event_id = Enum.random(0..events-1)
+      name     = Enum.at(names, event_id)
+      dollars  = Enum.random(1..10)
+      cents    = Enum.random(0..99)
+      cost     = "#{dollars}.#{cents}"
 
-      payload =  "#{event_id},name-#{event_id},#{cost}"
-
-      :ok = :brod.produce_sync(@client_id, @topic, @partition, _key="", "#{event_id},name-#{event_id},#{cost}")
+      :ok = :brod.produce_sync(@client_id, @topic, @partition, _key="", "#{event_id},#{name},#{cost}")
     end)
 
     :brod.stop_client(@client_id)
+  end
+
+  def create_names(amount) do
+    Enum.map(1..amount, fn _i -> Faker.StarWars.character end)
   end
 end
