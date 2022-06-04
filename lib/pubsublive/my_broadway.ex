@@ -17,7 +17,7 @@ defmodule Pubsublive.MyBroadway do
         ],
         processors: [
           default: [
-            concurrency: 10
+            concurrency: 1
           ]
         ]
       )

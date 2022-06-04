@@ -18,7 +18,7 @@ defmodule PubsubLive.Orders do
 
       event_id = Enum.random(0..events-1)
       name     = Enum.at(names, event_id)
-      dollars  = Enum.random(1..10)
+      dollars  = price(event_id)
       cents    = Enum.random(0..99)
       cost     = "#{dollars}.#{cents}"
 
@@ -26,6 +26,15 @@ defmodule PubsubLive.Orders do
     end)
 
     :brod.stop_client(@client_id)
+  end
+
+  def price(event_id) do
+    if (event_id == 3) do
+      IO.puts(1)
+      1
+    else
+      Enum.random(1..10)
+    end
   end
 
   def create_names(amount) do

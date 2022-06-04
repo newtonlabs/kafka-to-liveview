@@ -1,10 +1,11 @@
-import {sparkline} from "./sparkline"
+import {mountSparkline, sparkline} from "./sparkline"
 
 export function Hook() {
   let Hooks = {}
 
   Hooks.Sparkline = {
     mounted() {
+      mountSparkline(this.el.id);
       sparkline(this.el.id);
     }
   }
