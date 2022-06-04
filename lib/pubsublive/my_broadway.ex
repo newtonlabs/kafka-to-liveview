@@ -29,7 +29,7 @@ defmodule Pubsublive.MyBroadway do
       |> Message.update_data(&process_string_to_tuple_hack/1)
 
     # Simulate some expensive work
-    :timer.sleep(Enum.random(30..100))
+    :timer.sleep(Enum.random(200..300))
 
     # Broadcast to all the phoenix live views that care about this data
     Phoenix.PubSub.broadcast(Pubsublive.PubSub, "notifications", result.data)
