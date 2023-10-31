@@ -1,0 +1,23 @@
+version: "0.1"
+
+apps:
+  app:
+    module: nullstone/aws-fargate-service
+    vars:
+      port: 4000
+    environment:
+      DATABASE_URL: "{{ POSTGRES_URL }}"
+    capabilities:
+      - module: nullstone/rails-cookies
+      - module: nullstone/aws-postgres-access
+        connections:
+          postgres: db
+#      - module: nullstone/aws-msk-access
+#        connections:
+#          cluster: kafka
+
+datastores:
+  db:
+    module: nullstone/aws-rds-postgres
+#  kafka:
+#    module: nullstone/aws-msk

@@ -37,6 +37,12 @@ Create a topic. FOr this demo, we are using the topic "orders"
 docker compose exec kafka kafka-topics.sh --create --topic orders --bootstrap-server kafka:9092
 ```
 
+### Connect to app using iex inside docker
+
+```shell
+docker compose exec -it app iex -S mix
+```
+
 ## How to run locally without docker
 
 Visit [http://localhost:4000/ticker](http://localhost:4000/ticker)
