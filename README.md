@@ -5,7 +5,7 @@ A POC code repository to show an event flowing from
 3. Elixir Pubsub
 4. Live View
 
-### Deploy via Nullstone
+## Deploy via Nullstone
 
 1. Create postgresql datastore.
 2. Create kafka datastore.
@@ -23,8 +23,7 @@ A POC code repository to show an event flowing from
   nullstone launch --source=pubsublive --app=<app-name> --env=<env-name>
   ```
 
-
-### How to run locally
+## How to run locally with docker
 
 ```shell
 # Start zookeeper, kafka, and postgres (detached)
@@ -32,6 +31,13 @@ docker compose up -d db kafka zookeeper
 # Start app and tail logs
 docker compose up app
 ```
+
+Create a topic. FOr this demo, we are using the topic "orders"
+```shell
+docker compose exec kafka kafka-topics.sh --create --topic orders --bootstrap-server kafka:9092
+```
+
+## How to run locally without docker
 
 Visit [http://localhost:4000/ticker](http://localhost:4000/ticker)
 
@@ -53,6 +59,8 @@ Create a topic, if not already in place. For this demo we are using the topic "o
 ```
 $ bin/kafka-topics.sh --create --topic orders --bootstrap-server localhost:9092
 ```
+
+## Additional Help
 
 ### Fire Away
 
