@@ -7,10 +7,10 @@ services:
       - .:/app
       - deps:/app/deps
     ports:
-      - "4000:9000"
+      - "4000:4000"
     environment:
       - NULLSTONE_ENV=local
-      - POSTGRES_URL=postgres://acme:acme@db:5432/acme
+      - DATABASE_URL=postgres://acme:acme@db:5432/acme
     depends_on:
       - kafka
       - db
